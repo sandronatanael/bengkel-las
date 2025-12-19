@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Penjualan - Sandro Teknik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-red: #cc0000; /* Warna merah tegas */
+            --text-gray: #666666;
+            --text-black: #1a1a1a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Container utama */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Grid Atas (10 Kotak) */
+        .header-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2px;
+            background-color: #eee;
+            width: 100%;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            background-color: #ddd;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Profil Section */
+        .profile-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -45px;
+            padding-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 20;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title-text {
+            color: var(--text-black);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-top: 10px;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .subtitle-text {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .highlight-text {
+            color: var(--brand-red);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Navigasi Tombol Merah */
+        .action-list {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-red {
+            background-color: var(--brand-red);
+            color: #ffffff;
+            text-align: center;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 0px #990000;
+        }
+
+        .btn-red:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px #990000;
+        }
+
+        /* Modal Overlay (Umum) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Profil Zoom Specific */
+        #profile-zoom-modal img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 15px;
+            border: 5px solid white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 85%;
+            max-width: 350px;
+            position: relative;
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- 10 Kotak Kecil di Atas -->
+        <div class="header-gallery">
+            <div class="gallery-item"><img src="images Pintu Lipat.jpg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Pagar.jpg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Kerangkeng Mobil.png" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Bajaringan.jpeg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Pintu Besi.jpg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Stenlis.jpg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Kanopi Minimalis.jpg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar Pagar Rumah.jpeg" alt="Produk"></div>
+            <div class="gallery-item"><img src="image tralis jendela.jpeg" alt="Produk"></div>
+            <div class="gallery-item"><img src="Gambar tempat tidur.jpeg" alt="Produk"></div>
+        </div>
+
+        <!-- Profil Section -->
+        <div class="profile-wrapper">
+            <!-- Menambahkan onclick untuk zoom -->
+            <div class="profile-image" onclick="zoomProfile()">
+                <img src="logo web sandro teknik.jpeg" alt="Logo Toko" id="main-profile-img">
+            </div>
+            <div class="title-text">TOKO ONLINE SANDRO NATANAEL</div>
+            <div class="subtitle-text">Menyediakan Berbagai Produk Unggulan</div>
+            <div class="highlight-text">KLIK TOMBOL DIBAWAH UNTUK ORDER</div>
+        </div>
+
+        <!-- Tombol Aksi -->
+        <div class="action-list">
+            <button class="btn-red" onclick="showModal('Dapatkan Penawaran')">
+                DAPATKAN PENAWARAN
+            </button>
+            <button class="btn-red" onclick="showModal('Layanan & Orderan')">
+                LAYANAN & ORDERAN
+            </button>
+            <button class="btn-red" onclick="showModal('Kontak')">
+                KONTAK
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Zoom Profil -->
+    <div id="profile-zoom-modal" class="modal-overlay" onclick="closeZoom()">
+        <span class="close-zoom">&times;</span>
+        <img src="" id="zoomed-img" alt="Zoomed Profile" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Modal Info Tombol -->
+    <div id="info-modal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="modal-title" class="font-bold text-xl mb-4 text-red-700"></h2>
+            <p class="text-gray-600 mb-6">Silakan hubungi admin kami melalui WhatsApp untuk proses selanjutnya.</p>
+            <button class="bg-gray-800 text-white px-8 py-3 rounded-xl font-bold w-full" onclick="closeModal()">TUTUP</button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk memperbesar foto profil
+        function zoomProfile() {
+            const mainImg = document.getElementById('main-profile-img').src;
+            const zoomedImg = document.getElementById('zoomed-img');
+            const modal = document.getElementById('profile-zoom-modal');
+            
+            zoomedImg.src = mainImg;
+            modal.style.display = 'flex';
+        }
+
+        function closeZoom() {
+            document.getElementById('profile-zoom-modal').style.display = 'none';
+        }
+
+        // Fungsi untuk modal tombol penawaran/kontak
+        function showModal(title) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('info-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').style.display = 'none';
+        }
+
+        // Menutup modal dengan tombol ESC
+        window.onkeydown = function(event) {
+            if (event.key === "Escape") {
+                closeZoom();
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
