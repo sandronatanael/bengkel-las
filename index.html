@@ -8,6 +8,7 @@
     <style>
         :root {
             --brand-red: #cc0000; /* Warna merah tegas */
+            --brand-green: #25D366; /* Warna Hijau WhatsApp */
             --text-gray: #666666;
             --text-black: #1a1a1a;
         }
@@ -136,7 +137,125 @@
             box-shadow: 0 2px 0px #990000;
         }
 
-        /* Modal Overlay (Umum) */
+        /* Sub-Halaman Layout */
+        .sub-page {
+            display: none; /* Sembunyi secara default */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 100;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .sub-page-active {
+            display: block;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--brand-red);
+            font-weight: bold;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        /* Gaya Khusus WhatsApp di Penawaran */
+        .wa-card {
+            background-color: #f0fff4;
+            border: 2px solid var(--brand-green);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+
+        .wa-card:active {
+            transform: scale(0.98);
+        }
+
+        .wa-icon-container {
+            background: var(--brand-green);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Grid Layanan */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .service-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .service-info {
+            padding: 10px;
+        }
+
+        .service-name {
+            font-weight: bold;
+            font-size: 0.85rem;
+            height: 2.5em;
+            overflow: hidden;
+        }
+
+        .service-price {
+            color: var(--brand-red);
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-top: 5px;
+        }
+
+        /* Form Kontak */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--brand-red);
+        }
+
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -151,23 +270,12 @@
             backdrop-filter: blur(4px);
         }
 
-        /* Profil Zoom Specific */
         #profile-zoom-modal img {
             max-width: 90%;
             max-height: 80%;
             border-radius: 15px;
             border: 5px solid white;
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            width: 85%;
-            max-width: 350px;
-            position: relative;
         }
 
         .close-zoom {
@@ -184,42 +292,108 @@
 <body>
 
     <div class="app-container">
-        <!-- 10 Kotak Kecil di Atas -->
-        <div class="header-gallery">
-            <div class="gallery-item"><img src="images Pintu Lipat.jpg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Pagar.jpg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Kerangkeng Mobil.png" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Bajaringan.jpeg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Pintu Besi.jpg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Stenlis.jpg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Kanopi Minimalis.jpg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar Pagar Rumah.jpeg" alt="Produk"></div>
-            <div class="gallery-item"><img src="image tralis jendela.jpeg" alt="Produk"></div>
-            <div class="gallery-item"><img src="Gambar tempat tidur.jpeg" alt="Produk"></div>
-        </div>
-
-        <!-- Profil Section -->
-        <div class="profile-wrapper">
-            <!-- Menambahkan onclick untuk zoom -->
-            <div class="profile-image" onclick="zoomProfile()">
-                <img src="logo web sandro teknik.jpeg" alt="Logo Toko" id="main-profile-img">
+        <!-- HALAMAN UTAMA -->
+        <div id="main-page">
+            <div class="header-gallery">
+                <div class="gallery-item"><img src="images Pintu Lipat.jpg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Pagar.jpg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Kerangkeng Mobil.png" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Bajaringan.jpeg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Pintu Besi.jpg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Stenlis.jpg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Kanopi Minimalis.jpg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar Pagar Rumah.jpeg" alt="Produk"></div>
+                <div class="gallery-item"><img src="image tralis jendela.jpeg" alt="Produk"></div>
+                <div class="gallery-item"><img src="Gambar tempat tidur.jpeg" alt="Produk"></div>
             </div>
-            <div class="title-text">TOKO ONLINE SANDRO NATANAEL</div>
-            <div class="subtitle-text">Menyediakan Berbagai Produk Unggulan</div>
-            <div class="highlight-text">KLIK TOMBOL DIBAWAH UNTUK ORDER</div>
+
+            <div class="profile-wrapper">
+                <div class="profile-image" onclick="zoomProfile()">
+                    <img src="logo web sandro teknik.jpeg" alt="Logo Toko" id="main-profile-img">
+                </div>
+                <div class="title-text">TOKO ONLINE SANDRO NATANAEL</div>
+                <div class="subtitle-text">Menyediakan Berbagai Produk Unggulan</div>
+                <div class="highlight-text">KLIK TOMBOL DIBAWAH UNTUK ORDER</div>
+            </div>
+
+            <div class="action-list">
+                <button class="btn-red" onclick="openSubPage('page-penawaran')">
+                    DAPATKAN PENAWARAN
+                </button>
+                <button class="btn-red" onclick="openSubPage('page-layanan')">
+                    LAYANAN & ORDERAN
+                </button>
+                <button class="btn-red" onclick="openSubPage('page-kontak')">
+                    KONTAK
+                </button>
+            </div>
         </div>
 
-        <!-- Tombol Aksi -->
-        <div class="action-list">
-            <button class="btn-red" onclick="showModal('Dapatkan Penawaran')">
-                DAPATKAN PENAWARAN
-            </button>
-            <button class="btn-red" onclick="showModal('Layanan & Orderan')">
-                LAYANAN & ORDERAN
-            </button>
-            <button class="btn-red" onclick="showModal('Kontak')">
-                KONTAK
-            </button>
+        <!-- SUB PAGE: PENAWARAN -->
+        <div id="page-penawaran" class="sub-page">
+            <div class="back-button" onclick="closeSubPage()">
+                <span>&larr;</span> Kembali
+            </div>
+            <h2 class="text-xl font-bold mb-4">Dapatkan Penawaran Khusus</h2>
+            <p class="text-sm text-gray-600 mb-6">Kami siap memberikan estimasi harga terbaik. Silakan hubungi nomor WhatsApp resmi kami di bawah ini:</p>
+            
+            <a href="https://wa.me/6282172304200?text=Halo%20Sandro%20Teknik,%20saya%20ingin%20mendapatkan%20penawaran%20harga." target="_blank" class="block no-underline">
+                <div class="wa-card">
+                    <div class="wa-icon-container">
+                        <svg viewBox="0 0 24 24" width="35" height="35" fill="white">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </div>
+                    <div class="text-brand-green font-black text-2xl tracking-wider">0821 7230 4200</div>
+                    <p class="text-gray-500 text-sm mt-2">Klik untuk kirim pesan</p>
+                </div>
+            </a>
+
+            <div class="mt-8 p-4 bg-gray-50 rounded-xl border-l-4 border-red-600">
+                <h4 class="font-bold text-red-700 text-sm mb-1">Kenapa Memilih Kami?</h4>
+                <p class="text-xs text-gray-600 italic">Pengerjaan cepat, rapi, dan menggunakan material berkualitas tinggi.</p>
+            </div>
+        </div>
+
+        <!-- SUB PAGE: LAYANAN & ORDERAN -->
+        <div id="page-layanan" class="sub-page">
+            <div class="back-button" onclick="closeSubPage()">
+                <span>&larr;</span> Kembali
+            </div>
+            <h2 class="text-xl font-bold mb-4 text-center">Layanan Kami</h2>
+            <div class="services-grid" id="services-list">
+                <!-- Data via JS -->
+            </div>
+            <div class="mt-8 text-center text-xs text-gray-500">
+                * Harga dapat berubah sewaktu-waktu tergantung kerumitan.
+            </div>
+        </div>
+
+        <!-- SUB PAGE: KONTAK -->
+        <div id="page-kontak" class="sub-page">
+            <div class="back-button" onclick="closeSubPage()">
+                <span>&larr;</span> Kembali
+            </div>
+            <h2 class="text-xl font-bold mb-4">Formulir Pemesanan</h2>
+            <div class="form-group">
+                <label class="form-label">Nomor Telepon</label>
+                <input type="tel" id="input-phone" class="form-input" placeholder="08xxxxxxx">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Jenis Orderan</label>
+                <select id="input-type" class="form-input">
+                    <option value="Pagar">Pagar Rumah</option>
+                    <option value="Kanopi">Kanopi Minimalis</option>
+                    <option value="Teralis">Teralis Jendela</option>
+                    <option value="Bajaringan">Baja Ringan</option>
+                    <option value="PintuLipat">Pintu Lipat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Alamat Lengkap</label>
+                <textarea id="input-address" class="form-input" rows="3" placeholder="Masukkan alamat pengiriman..."></textarea>
+            </div>
+            <button class="btn-red" onclick="submitOrder()">KIRIM PESANAN</button>
         </div>
     </div>
 
@@ -229,22 +403,71 @@
         <img src="" id="zoomed-img" alt="Zoomed Profile" onclick="event.stopPropagation()">
     </div>
 
-    <!-- Modal Info Tombol -->
-    <div id="info-modal" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="modal-title" class="font-bold text-xl mb-4 text-red-700"></h2>
-            <p class="text-gray-600 mb-6">Silakan hubungi admin kami melalui WhatsApp untuk proses selanjutnya.</p>
-            <button class="bg-gray-800 text-white px-8 py-3 rounded-xl font-bold w-full" onclick="closeModal()">TUTUP</button>
-        </div>
-    </div>
-
     <script>
-        // Fungsi untuk memperbesar foto profil
+        // Data Layanan
+        const servicesData = [
+            { name: "Pagar Minimalis", price: "450.000", img: "Gambar Pagar.jpg" },
+            { name: "Kanopi Galvalum", price: "350.000", img: "Gambar Kanopi Minimalis.jpg" },
+            { name: "Pintu Besi Lipat", price: "850.000", img: "images Pintu Lipat.jpg" },
+            { name: "Teralis Jendela", price: "250.000", img: "image tralis jendela.jpeg" },
+            { name: "Baja Ringan", price: "185.000", img: "Gambar Bajaringan.jpeg" },
+            { name: "Pintu Stainless", price: "1.200.000", img: "Gambar Stenlis.jpg" },
+            { name: "Kerangkeng Mobil", price: "2.500.000", img: "Kerangkeng Mobil.png" },
+            { name: "Pagar Rumah Mewah", price: "650.000", img: "Gambar Pagar Rumah.jpeg" },
+            { name: "Tempat Tidur Besi", price: "1.500.000", img: "Gambar tempat tidur.jpeg" },
+            { name: "Pintu Gerbang Besi", price: "750.000", img: "Gambar Pintu Besi.jpg" }
+        ];
+
+        const servicesContainer = document.getElementById('services-list');
+        servicesData.forEach(item => {
+            servicesContainer.innerHTML += `
+                <div class="service-card" onclick="openOrder('${item.name}')">
+                    <img src="${item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="service-info">
+                        <div class="service-name">${item.name}</div>
+                        <div class="service-price">Rp ${item.price}/m²</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Navigasi Sub-Halaman
+        function openSubPage(pageId) {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('sub-page-active'));
+            document.getElementById(pageId).classList.add('sub-page-active');
+            document.getElementById('main-page').style.display = 'none';
+        }
+
+        function closeSubPage() {
+            document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('sub-page-active'));
+            document.getElementById('main-page').style.display = 'block';
+        }
+
+        // Fungsi Submit
+        function submitOrder() {
+            const phone = document.getElementById('input-phone').value;
+            const type = document.getElementById('input-type').value;
+            const address = document.getElementById('input-address').value;
+
+            if(!phone || !address) {
+                alert("Harap isi semua data!");
+                return;
+            }
+
+            const waUrl = `https://wa.me/6282172304200?text=PESANAN BARU%0A-------------------%0ANo Telp: ${phone}%0AJenis: ${type}%0AAlamat: ${address}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function openOrder(name) {
+            openSubPage('page-kontak');
+            document.getElementById('input-type').value = name;
+        }
+
+        // Zoom Profil
         function zoomProfile() {
             const mainImg = document.getElementById('main-profile-img').src;
             const zoomedImg = document.getElementById('zoomed-img');
             const modal = document.getElementById('profile-zoom-modal');
-            
             zoomedImg.src = mainImg;
             modal.style.display = 'flex';
         }
@@ -253,21 +476,10 @@
             document.getElementById('profile-zoom-modal').style.display = 'none';
         }
 
-        // Fungsi untuk modal tombol penawaran/kontak
-        function showModal(title) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('info-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('info-modal').style.display = 'none';
-        }
-
-        // Menutup modal dengan tombol ESC
         window.onkeydown = function(event) {
             if (event.key === "Escape") {
                 closeZoom();
-                closeModal();
+                closeSubPage();
             }
         };
     </script>
